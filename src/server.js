@@ -1,6 +1,5 @@
 const express = require('express')
-// const path = require('path')
-
+const cors = require('cors')
 
 const db = require('./database/db')
 const routes = require('./routes/routes')
@@ -9,6 +8,27 @@ const app = express()
 
 // Conexão com banco de dados 
 db.connect()
+
+const allowedOrigins = [
+    'http://127.0.0.1:5500',
+    'http://www.app.com.br',
+]
+
+// Checando se a origem tem permisão
+const checkOrigins = (origin, callback) => {
+    if(allowedOrigins.indexOf(origin) !== -1) {
+        callback(null, true)
+    } else if(!origin) {
+        callback(null, true)
+    } else {
+        callback(new Error())
+    }
+}
+
+// Habilitando CORS
+app.use(cors({
+    origin: checkOrigins,
+}))
 
 // Habilitando server para receber dados json
 app.use(express.json())
