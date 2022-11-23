@@ -15,19 +15,18 @@ const allowedOrigins = [
 ]
 
 // Checando se a origem tem permisão
-const checkOrigins = (origin, callback) => {
-    if(allowedOrigins.includes(origin)) {
-        callback(null, true)
-    } else if(!origin) {
-        callback(null, true)
-    } else {
-        callback(new Error())
-    }
-}
 
 // Habilitando CORS
 app.use(cors({
-    origin: checkOrigins,
+    origin: (origin, callback) => {
+        if(allowedOrigins.includes(origin)) {
+            callback(null, true)
+        } else if(!origin) {
+            callback(null, true)
+        } else {
+            callback(new Error())
+        } 
+    }
 }))
 
 // Habilitando server para receber dados json
