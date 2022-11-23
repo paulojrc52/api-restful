@@ -16,7 +16,7 @@ const allowedOrigins = [
 
 // Checando se a origem tem permisão
 const checkOrigins = (origin, callback) => {
-    if(allowedOrigins.indexOf(origin) !== -1) {
+    if(allowedOrigins.includes(origin)) {
         callback(null, true)
     } else if(!origin) {
         callback(null, true)
