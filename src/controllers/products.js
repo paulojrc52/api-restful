@@ -21,8 +21,6 @@ async function post(req, res) {
         price
     } = req.body 
 
-    console.log(req.body)
-
     const product = new ProductsModel({
         name,
         brand,
